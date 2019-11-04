@@ -1,20 +1,20 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <button class="btn btn-primary pull-right">Dodaj</button>
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>Imię</th>
+                        <th>Email</th>
                         <th>Treść</th> <!--tekst-->
                         <th>Akcja</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Treść kontaktowa</td>
+                    <tr *ngFor="let contact of contacts">
+                        <td>{{contact.content}}</td>
                         <td>
-                            <button class="btn btn-warning">Edytuj</button> |
-                            <button class="btn btn-danger">Usuń</button>
+                            <button class="btn btn-danger" (click)="openModalDelete(delete, contact._id)">Usuń</button>
                         </td>
                     </tr>
                 </tbody>
@@ -23,3 +23,16 @@
     </div>
 </div>
 
+    <ng-template #delete>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Usuń informację o kontakcie</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+           <p>Czy na pewno chcesz usunąć tą informację?</p>
+           <button (click)="modalRef.hide()" class="btn btn-primary">NIE</button> |
+           <button class="btn btn-danger" (click)="deleteInfo()">TAK</button>
+        </div>
+    </ng-template>
